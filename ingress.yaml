@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: drupal
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      ## Some security stuff
+      more_set_headers "Content-Security-Policy: script-src 'self'";
+      more_set_headers "X-Frame-Options: SAMEORIGIN";
+      more_set_headers "X-Content-Type-Options: nosniff";
+      more_set_headers "Referrer-Policy: strict-origin-when-cross-origin";
+      more_set_headers "Permissions-Policy: geolocation=(), microphone=(), camera=()";
+      more_set_headers "Server: 'I have no name!'";
+      more_set_headers "X-Drupal-Cache: 'Hosted with love'";
+      more_set_headers "X-Drupal-Cache-Contexts: 'by Michelin K8S'";
+      more_clear_headers "X-Drupal-Cache-Max-Age";
+      more_clear_headers "X-Drupal-Cache-Tags";
+      more_clear_headers "X-Drupal-Dynamic-Cache";
+      more_clear_headers "X-Generator";
+spec:
+  rules:
+  - host: tech.market
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: drupal-service
+            port:
+              number: 80

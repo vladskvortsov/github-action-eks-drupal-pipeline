@@ -1,0 +1,60 @@
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: drupal-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: drupal-service
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  selector:
+    app: drupal
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: drupal
+  name: drupal-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: drupal
+  template:
+    metadata:
+      labels:
+        app: drupal
+    spec:
+      containers:
+        - image: drupal:latest
+          name: drupal
+          ports:
+            - containerPort: 30080
+              name: drupal
+          volumeMounts:
+            - name: drupal
+              mountPath: /var/www/html/modules
+              subPath: modules
+            - name: drupal
+              mountPath: /var/www/html/profiles
+              subPath: profiles
+            - name: drupal
+              mountPath: /var/www/html/themes
+              subPath: themes
+      volumes:
+        - name: drupal
+          persistentVolumeClaim:
+            claimName: drupal-pvc

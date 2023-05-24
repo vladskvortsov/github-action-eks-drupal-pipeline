@@ -1,0 +1,13 @@
+serviceMonitor:
+  # enabled should be set to true to enable prometheus-operator discovery of this service
+  enabled: true
+ 
+# mysql connection params which build the DATA_SOURCE_NAME env var of the docker container
+mysql:
+  db: ""
+  host: "mysql-service"
+  param: ""
+  pass: "drupal"
+  port: 3306
+  protocol: ""
+  user: "drupal"
