@@ -42,7 +42,7 @@ spec:
         - image: drupal:latest
           name: drupal
           ports:
-            - containerPort: 30080
+            - containerPort: 80
               name: drupal
           volumeMounts:
             - name: drupal

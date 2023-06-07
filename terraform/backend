@@ -1,0 +1,29 @@
+provider "aws" {
+    region = "eu-west-2"
+    version = ">= 3.40.0"    
+    access_key = var.access_key
+    secret_key = var.secret_key
+}
+data "aws_availability_zones" "azs" {
+    state = "available"
+}
+
+
+
+resource "aws_s3_bucket" "drupal-eks-bucket" {
+  bucket = "drupal-eks-bucket"
+  
+  tags = {
+    Name        = "drupal-eks-bucket"
+    Environment = "development"
+  }
+}
+
+
+terraform {
+  backend "s3" {
+    bucket = "drupal-eks-bucket"
+    region = "eu-west-2"
+    key = "eks/terraform.tfstate"
+  }
+}
