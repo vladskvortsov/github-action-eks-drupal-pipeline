@@ -17,5 +17,6 @@ output "cluster_name" {
 
 output "region" {
   description = "AWS region"
-  value       = var.region
+  value       = "${var.region}"
 }
+

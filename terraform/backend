@@ -1,22 +1,13 @@
-provider "aws" {
-    region = "eu-west-2"
-    version = ">= 3.40.0"    
-    access_key = var.access_key
-    secret_key = var.secret_key
-}
-data "aws_availability_zones" "azs" {
-    state = "available"
-}
 
+module "s3_bucket" {
+  source = "terraform-aws-modules/s3-bucket/aws"
 
-
-resource "aws_s3_bucket" "drupal-eks-bucket" {
   bucket = "drupal-eks-bucket"
-  
-  tags = {
-    Name        = "drupal-eks-bucket"
-    Environment = "development"
-  }
+  acl    = "private"
+
+  control_object_ownership = true
+  object_ownership         = "ObjectWriter"
+
 }
 
 
@@ -24,6 +15,6 @@ terraform {
   backend "s3" {
     bucket = "drupal-eks-bucket"
     region = "eu-west-2"
-    key = "eks/terraform.tfstate"
+    key = "terraform.tfstate"
   }
 }

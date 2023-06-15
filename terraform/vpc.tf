@@ -1,9 +1,9 @@
 module "drupal-vpc" {
   source          = "terraform-aws-modules/vpc/aws"
   name            = "drupal-vpc"
-  cidr            = var.vpc_cidr_block
-  private_subnets = var.private_subnet_cidr_blocks
-  public_subnets  = var.public_subnet_cidr_blocks
+  cidr            = "${var.vpc_cidr_block}"
+  private_subnets = "${var.private_subnet_cidr_blocks}"
+  public_subnets  = "${var.public_subnet_cidr_blocks}"
   azs             = data.aws_availability_zones.azs.names
 
   enable_nat_gateway   = true
