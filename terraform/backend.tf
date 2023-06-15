@@ -19,6 +19,11 @@ terraform {
      source = "hashicorp/aws"
      version = "~> 5.3"
     }
+  backend "s3" {
+    bucket = "drupal-eks-bucket1"
+    region = "eu-west-2"
+    key = "terraform.tfstate"
+  }
  }
   
 
