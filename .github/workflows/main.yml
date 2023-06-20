@@ -47,10 +47,22 @@ jobs:
        run: exit 1
  
      - name: Terraform Apply
-       run: terraform apply -auto-approve -var-file="terraform.tfvars"
+       run: terraform apply -auto-approve 
        continue-on-error: true
+       
+       
+       
+     - name: Kubernetes config
+       id: Kubernetes Deploy
+       working-directory: ./kubernetes
+       run: aws eks update-kubeconfig --name drupal-eks-cluster
+       
+     - name: Kubernetes Deploy
+     - uses: actions-hub/kubectl@master
+       with:
+         args: kubectl apply -f .
 
      - name: Terraform Destroy
        id: destroy
-       working-directory: ${{ github.event.inputs.resource }}
-       run: terraform destroy -auto-approve -var-file=terraform.tfvars
+       working-directory: ./terraform/
+       run: terraform destroy -auto-approve
