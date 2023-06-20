@@ -51,14 +51,14 @@ jobs:
        continue-on-error: true
        
      - name: Kubernetes config
-       uses: ItsKarma/aws-cli@v1.70.0
+       uses: imehedi/actions-awscli-v2@latest
        with:
-         args: aws eks update-kubeconfig --name drupal-eks-cluster
+           args: aws eks update-kubeconfig --name drupal-eks-cluster
        env:
-         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+           AWS_DEFAULT_REGION: "eu-west-3"
        continue-on-error: true
-
 
 
      - name: Kubernetes Deploy
