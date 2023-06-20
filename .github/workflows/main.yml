@@ -52,11 +52,14 @@ jobs:
        
        
      - name: Kubernetes config
-       id: Kubernetes Deploy
        working-directory: ./kubernetes
        run: aws eks update-kubeconfig --name drupal-eks-cluster
 
 
+     - name: Kubernetes Deploy
+     - uses: actions-hub/kubectl@master
+       with:
+         args: kubectl apply -f .
 
      - name: Terraform Destroy
        id: destroy
