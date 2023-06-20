@@ -57,7 +57,7 @@ jobs:
 
 
      - name: Kubernetes Deploy
-     - uses: actions-hub/kubectl@master
+       uses: actions-hub/kubectl@master
        with:
          args: kubectl apply -f .
 
