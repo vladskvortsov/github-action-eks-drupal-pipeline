@@ -50,16 +50,20 @@ jobs:
        run: terraform apply -auto-approve 
        continue-on-error: true
        
-       
      - name: Kubernetes config
-       working-directory: ./kubernetes
-       run: aws eks update-kubeconfig --name drupal-eks-cluster
+       uses: ItsKarma/aws-cli@v1.70.0
+       with:
+         args: aws eks update-kubeconfig --name drupal-eks-cluster
+       env:
+         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
 
 
      - name: Kubernetes Deploy
        uses: actions-hub/kubectl@master
        with:
-         args: kubectl apply -f .
+         args: kubectl apply -f ./kubernetes/
 
      - name: Terraform Destroy
        id: destroy
