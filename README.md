@@ -1,10 +1,14 @@
 # Github-Action-EKS-Drupal-Pipeline
 
+
+
 Pipeline to deploy Kubernetes Drupal cluster to Amazon EKS using Terraform and Git Actions.
 
 
 
 ## Prerequisites
+
+
 
 - Github Account 
 - AWS Account 
@@ -12,17 +16,16 @@ Pipeline to deploy Kubernetes Drupal cluster to Amazon EKS using Terraform and G
 
 
 ## Configuration steps:
-
-- Install dependencies
+- Install dependencies;
 - Deploying VPC, subnets, security group, NAT Gataway;
 - Deploying cluster and nodegroup;
-- Provision kubernetes config files using kubectl;
+- Provision kubernetes config files using kubectl.
 
 
 > Note: Attention!
 
 
-AWS: EKS, NAT Gataway are `NOT FREE SERVICES` please visit Pricing pages first.
+> AWS: EKS, NAT Gataway are `NOT FREE SERVICES` please visit Pricing pages first.
 
 
 ## Deploy from git
