@@ -12,7 +12,7 @@ Pipeline to deploy Kubernetes Drupal cluster to Amazon EKS using Terraform and G
 
 
 
-## Configuration steps:
+### Configuration steps:
 - Install dependencies;
 - Deploying VPC, subnets, security group, NAT Gataway;
 - Deploying cluster and nodegroup;
@@ -23,7 +23,7 @@ Pipeline to deploy Kubernetes Drupal cluster to Amazon EKS using Terraform and G
 > AWS: EKS, NAT Gataway are `NOT FREE SERVICES` please visit Pricing pages first.
 
 
-## Deploy from git
+### Deploy from git
 
 
 To start work copy this repo to your github account.
