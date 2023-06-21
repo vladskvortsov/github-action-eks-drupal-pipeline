@@ -53,7 +53,7 @@ jobs:
      - name: Kubernetes config
        uses: imehedi/actions-awscli-v2@latest
        with:
-           args: aws eks update-kubeconfig --name drupal-eks-cluster
+           args: eks update-kubeconfig --name drupal-eks-cluster
        env:
            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
