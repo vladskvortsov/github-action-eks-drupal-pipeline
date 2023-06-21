@@ -20,6 +20,6 @@ Pipeline to deploy Kubernetes Drupal cluster to Amazon EKS using Terraform
 - Provision kubernetes config files using kubectl;
 
 
-> Note: `Remember!`
+> Note: Remember!
 
-`AWS: EKS, NAT Gataway are `NOT FREE SERVICES` pleaase visit Pricing pages first`
+AWS: EKS, NAT Gataway are `NOT FREE SERVICES` pleaase visit Pricing pages first
