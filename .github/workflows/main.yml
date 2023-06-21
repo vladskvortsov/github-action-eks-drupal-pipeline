@@ -74,5 +74,10 @@ jobs:
          cluster_name: drupal-eks-cluster
          args:  apply -f ./kubernetes/
        continue-on-error: true
-
+       
+       
+     - name: Terraform Destroy
+       id: destroy
+       working-directory: ./terraform/
+       run: terraform destroy -auto-approve
 
