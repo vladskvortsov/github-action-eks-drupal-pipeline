@@ -68,6 +68,7 @@ jobs:
          aws-region: "eu-west-3"
 
      - name: Kubernetes Deploy
+       id: kubectl
        uses: ianbelcher/eks-kubectl-action@master
        with:
          cluster_name: drupal-eks-cluster
@@ -75,3 +76,5 @@ jobs:
        continue-on-error: true
 
 
+     - name: Use the output
+       run: echo "${{ steps.kubectl.outputs.kubectl-out }}"
