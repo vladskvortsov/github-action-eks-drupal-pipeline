@@ -64,7 +64,7 @@ jobs:
      - name: Kubernetes Deploy
        uses: actions-hub/kubectl@master
        with:
-         args: kubectl apply -f ./kubernetes/
+         args: apply -f ./kubernetes/
        continue-on-error: true
 
      - name: Terraform Destroy
