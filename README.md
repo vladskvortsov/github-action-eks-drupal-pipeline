@@ -1,7 +1,4 @@
 # Github-Action-EKS-Drupal-Pipeline
-
-
-
 Pipeline to deploy Kubernetes Drupal cluster to Amazon EKS using Terraform and Git Actions.
 
 
@@ -23,8 +20,6 @@ Pipeline to deploy Kubernetes Drupal cluster to Amazon EKS using Terraform and G
 
 
 > Note: Attention!
-
-
 > AWS: EKS, NAT Gataway are `NOT FREE SERVICES` please visit Pricing pages first.
 
 
@@ -43,7 +38,7 @@ AWS_ACCESS_KEY_ID
 AWS_SECRET_ACCESS_KEY
 ```
 
-Name of our s3 bucket for terraform.tfstate file
+Name of your s3 bucket for terraform.tfstate file
 
 
 ```sh
