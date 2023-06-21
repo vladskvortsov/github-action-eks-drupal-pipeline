@@ -59,13 +59,15 @@ jobs:
            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
            AWS_DEFAULT_REGION: "eu-west-3"
        continue-on-error: true
-
-
+       
+       
      - name: Kubernetes Deploy
-       uses: actions-hub/kubectl@master
+       uses: kodermax/kubectl-aws-eks@master
        with:
-         args: apply -f ./kubernetes/
+          args: apply -f ./kubernetes/
        continue-on-error: true
+
+
 
      - name: Terraform Destroy
        id: destroy
