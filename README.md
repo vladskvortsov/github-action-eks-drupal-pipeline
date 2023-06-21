@@ -1,6 +1,6 @@
 
 # Github-Action-EKS-Drupal-Pipeline
-A Terraform module for deploying Grafana container on AWS EC2 using Ansible.
+Pipeline to deploy Kubernetes Drupal cluster to Amazon EKS using Terraform
 
 
 ## Prerequisites
