@@ -3,7 +3,7 @@ Pipeline to deploy Kubernetes Drupal cluster to Amazon EKS using Terraform and G
 
 
 
-## Prerequisites
+### Prerequisites
 
 
 
