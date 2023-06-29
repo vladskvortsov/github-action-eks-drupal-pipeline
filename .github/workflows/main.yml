@@ -67,15 +67,21 @@ jobs:
          aws-secret-access-key:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
          aws-region: "eu-west-3"
 
-     - name: Kubernetes Deploy
-       id: kubectl
-       uses: ianbelcher/eks-kubectl-action@master
+     - name: Run Ansible playbook
+       uses: dawidd6/action-ansible-playbook@v2
        with:
-         cluster_name: drupal-eks-cluster
-         args:  apply -f ./kubernetes/
-       continue-on-error: true
+         # Required, playbook filepath
+         playbook: deploy.yml
+         # Optional, directory where playbooks live
+         directory: ./ansible/deploy.yml
+
+         inventory: |
+           [all]
+           localhost
+
+
        
-       
+      
      - name: Terraform Destroy
        id: destroy
        working-directory: ./terraform/
