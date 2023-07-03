@@ -27,13 +27,15 @@ jobs:
      - name: Checkout the repository to the runner
        uses: actions/checkout@v2
 
-     - name: Deploy
-       uses: reggionick/s3-deploy@v3
+     - name: Create bucket in S3
+       uses: aitorres/aws-s3-create-bucket@v1.2.0
        with:
-         bucket: ${{ secrets.BUCKET_TF_STATE }}
-         bucket-region: ${{ secrets.AWS_DEFAULT_REGION }}
-         private: true
-
+         bucket-name: ${{ secrets.BUCKET_TF_STATE}}
+         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+         acl: 'private'
+         
      - name: Setup Terraform with specified version on the runner
        uses: hashicorp/setup-terraform@v2
        with:
@@ -85,13 +87,6 @@ jobs:
          inventory: |
            [all]
            localhost
-
-<<<<<<< HEAD
-=======
-
-       
-      
->>>>>>> c1a1e3632ec43f56c38e9ab1becc915036b61b2d
      - name: Terraform Destroy
        id: destroy
        working-directory: ./terraform/
