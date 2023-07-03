@@ -7,3 +7,7 @@
 # tf state files
 *.tfstate
 *.tfstate.*
+
+
+terraform.tfvars
+backend.tf

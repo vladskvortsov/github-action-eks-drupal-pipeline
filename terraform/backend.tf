@@ -1,7 +1,7 @@
 provider "aws" {
-    region = "eu-west-3" 
-#    access_key = "${var.access_key}"
-#    secret_key = "${var.secret_key}"
+    region = "${var.region}"
+    access_key = "${var.access_key}"
+    secret_key = "${var.secret_key}"
 }
 
 
@@ -14,8 +14,8 @@ terraform {
  
  }
   backend "s3" {
-    bucket = "drupal-eks-bucket1"
-    region = "eu-west-3"
+    bucket = "drupal-eks-bucket4"
+    region = "${var.region}"
     key = "terraform.tfstate"
   }
 

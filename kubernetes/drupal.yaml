@@ -1,60 +1,67 @@
 
 apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: drupal-pvc
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
----
-apiVersion: v1
 kind: Service
 metadata:
-  name: drupal-service
+  name: drupal
+  labels:
+    app: drupal
 spec:
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
+    - port: 80
   selector:
     app: drupal
+    tier: frontend
+  type: LoadBalancer
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
     app: drupal
-  name: drupal-deployment
+  name: drupal
 spec:
   replicas: 2
   selector:
     matchLabels:
       app: drupal
+      tier: frontend
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
         app: drupal
+        tier: frontend
     spec:
       containers:
-        - image: drupal:latest
+      - image: drupal:latest
+        name: drupal
+        env:
+        - name: DRUPAL_DB_HOST
+          value: drupal-mysql
+        - name: DRUPAL_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: mysql-password
+        ports:
+        - containerPort: 80
           name: drupal
-          ports:
-            - containerPort: 80
-              name: drupal
-          volumeMounts:
-            - name: drupal
+        volumeMounts:
+
+            - name: drupal-persistent-storage
               mountPath: /var/www/html/modules
-              subPath: modules
-            - name: drupal
+            - name: drupal-persistent-storage
               mountPath: /var/www/html/profiles
-              subPath: profiles
-            - name: drupal
+            - name: drupal-persistent-storage
+              mountPath: /var/www/html/sites    
+            - name: drupal-persistent-storage
               mountPath: /var/www/html/themes
-              subPath: themes
       volumes:
-        - name: drupal
-          persistentVolumeClaim:
-            claimName: drupal-pvc
+      - name: drupal-persistent-storage
+        persistentVolumeClaim:
+          claimName: eks-drupal
+
+
+
+

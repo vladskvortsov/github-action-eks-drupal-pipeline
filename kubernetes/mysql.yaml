@@ -1,45 +1,37 @@
 apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: drupal-pvc-mysql
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
----
-apiVersion: v1
 kind: Service
 metadata:
-  name: mysql-service
+  name: drupal-mysql
+  labels:
+    app: drupal
 spec:
-  selector:
-    app: mysql
   ports:
-    - name: tcp
-      protocol: TCP
-      port: 3306
-    - name: mysql-exporter
-      protocol: TCP
-      port: 9104
+    - port: 3306
+  selector:
+    app: drupal
+    tier: mysql
+  clusterIP: None
 ---
+
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
-  name: mysql
+  labels:
+    app: drupal
+  name: drupal-mysql
 spec:
-  replicas: 2
-  serviceName: mysql-service
   selector:
     matchLabels:
-      app: mysql
+      app: drupal
+      tier: mysql
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
-        app: mysql
+        app: drupal
+        tier: mysql
     spec:
-      terminationGracePeriodSeconds: 10
       containers:
         - name: mysql
           image: mysql:8.0
@@ -54,69 +46,16 @@ spec:
           - name: MYSQL_DATABASE
             value: drupal
 
-          - name: MYSQL_PASSWORD
-            value: drupal
-
           - name: MYSQL_ROOT_PASSWORD
-            value: drupal
-
+            valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: mysql-root-password
 
           volumeMounts:
-            -
-              mountPath: /var/lib/mysql
-              name: vol-drupal
-              subPath: dbdata
-
-
-        - name: mysql-exporter
-          image: prom/mysqld-exporter
-          ports:
-            - name: mysql-exporter
-              protocol: TCP
-              containerPort: 9104
-          env: 
-            - name: MYSQL_ROOT_PASSWORD
-              value: drupal
-
-            - name: DATA_SOURCE_NAME
-              value: "root:$(MYSQL_ROOT_PASSWORD)@(mysql-service:3306)/"
-            - name: collect.global_status
-              value: 'true'
-            - name: collect.info_schema.innodb_metrics
-              value: 'true'
-            - name: collect.auto_increment.columns
-              value: 'true'
-            - name: collect.info_schema.processlist
-              value: 'true'
-            - name: collect.binlog_size
-              value: 'true'
-            - name: collect.info_schema.tablestats
-              value: 'true'
-            - name: collect.global_variables
-              value: 'true'
-            - name: collect.info_schema.query_response_time
-              value: 'true'
-            - name: collect.info_schema.userstats
-              value: 'true'
-            - name: collect.info_schema.tables
-              value: 'true'
-            - name: collect.perf_schema.tablelocks
-              value: 'true'
-            - name: collect.perf_schema.file_events
-              value: 'true'
-            - name: collect.perf_schema.eventswaits
-              value: 'true'
-            - name: collect.perf_schema.indexiowaits
-              value: 'true'
-            - name: collect.perf_schema.tableiowaits
-              value: 'true'
-  volumeClaimTemplates:
-      - metadata:
-          name: vol-drupal
-        spec:
-          storageClassName: standard
-          accessModes:
-            - ReadWriteOnce
-          resources:
-            requests:
-              storage: 5Gi
+          - name: mysql-persistent-storage
+            mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: eks-mysql

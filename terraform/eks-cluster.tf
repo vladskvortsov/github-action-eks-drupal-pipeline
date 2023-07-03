@@ -31,3 +31,38 @@ module "eks" {
         }
     }
 }
+
+
+resource "aws_efs_file_system" "efs" {
+   creation_token = "efs"
+   performance_mode = "generalPurpose"
+   throughput_mode = "bursting"
+   encrypted = "true"
+ tags = {
+     Name = "EFS"
+   }
+ }
+
+
+resource "aws_efs_mount_target" "efs-mt" {
+   count = length(data.aws_availability_zones.azs.names)
+   file_system_id  = aws_efs_file_system.efs.id
+   subnet_id = module.drupal-vpc.private_subnets[count.index]
+   security_groups = [aws_security_group.drupal-sg.id]
+ }
+
+ resource "local_file" "efs_dns_name" {
+    content  =  aws_efs_file_system.efs.dns_name
+    filename = "efs_dns_name"
+}
+
+
+ resource "local_file" "file_system_id" {
+    content  =  aws_efs_file_system.efs.dns_name
+    filename = "file_system_id"
+}
+
+ resource "local_file" "region" {
+    content  =  "${var.region}"
+    filename = "region"
+}
