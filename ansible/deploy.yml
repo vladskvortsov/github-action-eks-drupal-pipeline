@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  tasks:
+
+
+  - name: Create a Deployment by reading the definition from a local file
+    kubernetes.core.k8s:
+      state: present
+      src: /kubernetes/
