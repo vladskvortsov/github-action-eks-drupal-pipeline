@@ -27,15 +27,6 @@ jobs:
      - name: Checkout the repository to the runner
        uses: actions/checkout@v2
        
-     - name: Checkout if bucket exists
-       uses: tuler/s3-check-action@master
-       id: check
-       env:
-         FILE: terraform.tfstate
-         AWS_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
-         AWS_S3_BUCKET: ${{ secrets.BUCKET_TF_STATE}}
-         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
        
      - name: Create bucket in S3
