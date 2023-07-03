@@ -1,11 +1,11 @@
 ---
 - hosts: localhost
   connection: local
-  become: true
+#  become: true
   tasks:
 
 
   - name: Create a Deployment by reading the definition from a local file
     kubernetes.core.k8s:
       state: present
-      src: ~/../kubernetes/drupal.yaml
+      src: "~/kubernetes/"
