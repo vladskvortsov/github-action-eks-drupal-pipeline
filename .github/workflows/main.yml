@@ -86,6 +86,12 @@ jobs:
            [all]
            localhost
 
+<<<<<<< HEAD
+=======
+
+       
+      
+>>>>>>> c1a1e3632ec43f56c38e9ab1becc915036b61b2d
      - name: Terraform Destroy
        id: destroy
        working-directory: ./terraform/
