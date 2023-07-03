@@ -76,7 +76,7 @@ jobs:
          # Required, playbook filepath
          playbook: deploy.yml
          # Optional, directory where playbooks live
-         directory: ./ansible/deploy.yml
+         directory: ./ansible
 
          inventory: |
            [all]
