@@ -13,10 +13,10 @@ terraform {
     }
  
  }
-  backend "s3" {
-    bucket = "drupal-eks-bucket4"
-    region = "us-west-2"
-    key = "terraform.tfstate"
-  }
-
-}
+#  backend "s3" {
+#    bucket = "drupal-eks-bucket4"
+#    region = "us-west-2"
+#    key = "terraform.tfstate"
+#  }
+#
+#}
