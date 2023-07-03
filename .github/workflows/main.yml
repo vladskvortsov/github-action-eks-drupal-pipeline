@@ -81,6 +81,8 @@ jobs:
          inventory: |
            [all]
            localhost
+           [all:vars]
+           ansible_python_interpreter=/usr/bin/python3
      - name: Terraform Destroy
        id: destroy
        working-directory: ./terraform/
