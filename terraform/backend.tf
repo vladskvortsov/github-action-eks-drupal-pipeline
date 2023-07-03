@@ -15,7 +15,7 @@ terraform {
  }
   backend "s3" {
     bucket = "drupal-eks-bucket4"
-    region = "${var.region}"
+    region = "us-west-2"
     key = "terraform.tfstate"
   }
 
