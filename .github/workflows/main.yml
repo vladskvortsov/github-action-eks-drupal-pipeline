@@ -26,7 +26,17 @@ jobs:
    steps:
      - name: Checkout the repository to the runner
        uses: actions/checkout@v2
+       
+     - name: Checkout if bucket exists
+       uses: tuler/s3-check-action@master
+       id: check
+       env:
+         AWS_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+         AWS_S3_BUCKET: ${{ secrets.BUCKET_TF_STATE}}
+         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
+       
      - name: Create bucket in S3
        uses: aitorres/aws-s3-create-bucket@v1.2.0
        with:
@@ -35,7 +45,7 @@ jobs:
          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
          acl: 'private'
-         continue-on-error: true
+       if: steps.check.outputs.exists == 'false'
          
      - name: Setup Terraform with specified version on the runner
        uses: hashicorp/setup-terraform@v2
