@@ -35,6 +35,7 @@ jobs:
          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
          acl: 'private'
+         continue-on-error: true
          
      - name: Setup Terraform with specified version on the runner
        uses: hashicorp/setup-terraform@v2
