@@ -34,7 +34,7 @@ jobs:
      - name: Install dependencies
        run: |
           python -m pip install --upgrade pip
-          pip3 install --upgrade kubernetes pyyaml jsonpatch
+          pip3 install --upgrade kubernetes pyyaml jsonpatch openshift
      
      - name: Setup Terraform with specified version on the runner
        uses: hashicorp/setup-terraform@v2
