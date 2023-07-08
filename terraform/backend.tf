@@ -1,7 +1,7 @@
 provider "aws" {
     region = "${var.region}"
-#    access_key = "${var.access_key}"
-#    secret_key = "${var.secret_key}"
+    access_key = "${var.access_key}"
+    secret_key = "${var.secret_key}"
 }
 
 
@@ -11,11 +11,15 @@ terraform {
      source = "hashicorp/aws"
      version = "~> 5.3"
     }
- 
+     ansible = {
+      source  = "ansible/ansible"      
+    }
+
+
  }
-  backend "s3" {
-    bucket = "drupal-eks-bucket4"
-    region = "us-west-2"
+  backend "s3" {  
+    bucket = "drupal-eks-bucket5"
+    region = "us-east-1"
     key = "terraform.tfstate"
   }
 

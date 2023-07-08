@@ -3,4 +3,6 @@ private_subnet_cidr_blocks=["10.0.1.0/24","10.0.2.0/24","10.0.3.0/24"]
 public_subnet_cidr_blocks=["10.0.4.0/24","10.0.5.0/24","10.0.6.0/24"]
 #access_key = ""
 #secret_key = ""
-region = "us-west-2"
+region = "us-east-2"
+access_key = "AKIAS6JMJ3VB4FZGHBFT"
+secret_key = "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"

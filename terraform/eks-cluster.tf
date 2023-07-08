@@ -47,22 +47,24 @@ resource "aws_efs_file_system" "efs" {
 resource "aws_efs_mount_target" "efs-mt" {
    count = length(data.aws_availability_zones.azs.names)
    file_system_id  = aws_efs_file_system.efs.id
-   subnet_id = length(module.drupal-vpc.private_subnets)
+   subnet_id = module.drupal-vpc.private_subnets[count.index].id 
    security_groups = [aws_security_group.drupal-sg.id]
  }
 
- resource "local_file" "efs_dns_name" {
-    content  =  aws_efs_file_system.efs.dns_name
-    filename = "efs_dns_name"
-}
 
 
- resource "local_file" "file_system_id" {
-    content  =  aws_efs_file_system.efs.dns_name
-    filename = "file_system_id"
-}
 
- resource "local_file" "region" {
-    content  =  "${var.region}"
-    filename = "region"
+resource "ansible_playbook" "playbook" {
+  playbook   = "./ansible/deploy.yaml"
+  name       = "localhost"
+  replayable = true
+ 
+#  ignore_playbook_failure = true
+  
+  extra_vars = {
+  ansible_host = "localhost"
+#  ansible_ssh_user = "ubuntu"
+#  ansible_ssh_private_key_file = "${var.private_key}"
+
+  }
 }
