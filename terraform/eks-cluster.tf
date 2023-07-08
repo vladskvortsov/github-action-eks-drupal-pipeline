@@ -22,7 +22,7 @@ module "eks" {
 
     eks_managed_node_groups = {
         dev = {
-            min_size = 1
+            min_size = 1#length()
             max_size = 3
             desired_size = 2
             additional_security_group_ids = [aws_security_group.drupal-sg.id]
