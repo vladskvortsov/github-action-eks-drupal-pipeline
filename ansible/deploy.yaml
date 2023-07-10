@@ -14,7 +14,7 @@
   - name: Kubeconfig Setup
     shell: |
       cd ~/github-action-eks-drupal-pipeline/terraform/
-      aws eks --region $(terraform output -raw region) update-kubeconfig --name $(terraform output -raw cluster_name)
+      aws eks update-kubeconfig  --name $(terraform output -raw cluster_name) --region $(terraform output -raw region)
 
   - name: Create a Deployment
     kubernetes.core.k8s:
