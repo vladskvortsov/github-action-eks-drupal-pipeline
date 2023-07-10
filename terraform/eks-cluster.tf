@@ -53,18 +53,3 @@ resource "aws_efs_mount_target" "efs-mt" {
 
 
 
-
-resource "ansible_playbook" "playbook" {
-  playbook   = "./ansible/deploy.yaml"
-  name       = "localhost"
-  replayable = true
- 
-#  ignore_playbook_failure = true
-  
-  extra_vars = {
-  ansible_host = "localhost"
-#  ansible_ssh_user = "ubuntu"
-#  ansible_ssh_private_key_file = "${var.private_key}"
-
-  }
-}
