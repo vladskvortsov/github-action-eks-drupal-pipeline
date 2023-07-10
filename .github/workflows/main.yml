@@ -76,6 +76,19 @@ jobs:
          aws-secret-access-key:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
          aws-region: "eu-west-3"
 
+     - name: Run Ansible playbook
+       uses: dawidd6/action-ansible-playbook@v2
+       with:
+         # Required, playbook filepath
+         playbook: deploy.yaml
+         # Optional, directory where playbooks live
+         directory: ./ansible
+
+         inventory: |
+           [all]
+           localhost
+           [all:vars]
+           ansible_python_interpreter=/bin/python3
 
      - name: Terraform Destroy
        id: destroy
