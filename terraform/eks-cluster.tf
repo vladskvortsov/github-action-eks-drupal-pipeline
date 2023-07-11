@@ -33,24 +33,6 @@ module "eks" {
 }
 
 
-resource "aws_efs_file_system" "efs" {
-   creation_token = "efs"
-   performance_mode = "generalPurpose"
-   throughput_mode = "bursting"
-   encrypted = "true"
- tags = {
-     Name = "EFS"
-   }
- }
-
-
-resource "aws_efs_mount_target" "efs-mt" {
-
-    file_system_id  = aws_efs_file_system.efs.id
-    subnet_id = each.key
-    for_each = toset(module.drupal-vpc.private_subnets)
-    security_groups = [aws_security_group.drupal-sg.id]
- }
 
 
 
