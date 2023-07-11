@@ -16,4 +16,4 @@
   - name: Create a Deployment
     kubernetes.core.k8s:
       state: present
-      src: /../kubernetes/
+      src: /home/ubuntu/kubernetes/
