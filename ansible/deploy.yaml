@@ -11,9 +11,15 @@
       ./aws/install -i /usr/local/aws-cli -b /usr/local/bin --update
       ln -nsf /usr/local/bin/aws /usr/bin/aws
       rm -rf awscliv2.zip
-
-
-  - name: Create a Deployment
-    kubernetes.core.k8s:
+      
+  - name: Install kubernetes python package #This will be installed on the remote host.
+    pip:
+      name: kubernetes
       state: present
-      src: /home/runner/work/github-action-eks-drupal-pipeline/github-action-eks-drupal-pipeline/kubernetes/
+      
+  - name: Create a Deployment
+      k8s:
+        state: present
+        src: /home/runner/work/github-action-eks-drupal-pipeline/github-action-eks-drupal-pipeline/kubernetes/
+
+
