@@ -22,7 +22,7 @@ module "eks" {
 
     eks_managed_node_groups = {
         dev = {
-            min_size = 1#length()
+            min_size = 1
             max_size = 3
             desired_size = 2
             additional_security_group_ids = [aws_security_group.drupal-sg.id]
@@ -47,7 +47,7 @@ resource "aws_efs_file_system" "efs" {
 resource "aws_efs_mount_target" "efs-mt" {
    count = length(data.aws_availability_zones.azs.names)
    file_system_id  = aws_efs_file_system.efs.id
-   subnet_id = "10.0.1.0/24"
+   subnet_id = "shared"
    security_groups = [aws_security_group.drupal-sg.id]
  }
 
