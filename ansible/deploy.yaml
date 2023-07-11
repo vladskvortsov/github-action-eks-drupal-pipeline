@@ -4,8 +4,10 @@
 #  become: true
   tasks:      
   - name: Install kubernetes python package 
+    pip:
       name: kubernetes
       state: present
+
 
   - name: Kubeconfig Setup
     shell: |
@@ -14,5 +16,5 @@
   - name: Create a Deployment
     k8s:
       state: present
-      src: ~/github-action-eks-drupal-pipeline/kubernetes/
+      src: ~/kubernetes/
 #      kubeconfig:  ~/.kube/config.
