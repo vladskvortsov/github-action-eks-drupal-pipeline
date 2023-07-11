@@ -16,4 +16,4 @@
   - name: Create a Deployment
     kubernetes.core.k8s:
       state: present
-      src: ~/github-action-eks-drupal-pipeline/kubernetes/
+      src: /../kubernetes/
