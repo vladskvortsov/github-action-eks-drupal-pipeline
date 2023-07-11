@@ -57,7 +57,7 @@ cidr_blocks = [
 
  resource "aws_subnet" "subnet" {
    count=length(data.aws_availability_zones.azs.names)
-   cidr_block = cidrsubnet(module.drupal-vpc.cidr, 8, count.index)
+   cidr_block = "10.0.7.0/16"
    vpc_id = module.drupal-vpc.vpc_id
    availability_zone = data.aws_availability_zones.azs.names[count.index]
  }
