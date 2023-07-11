@@ -47,7 +47,7 @@ jobs:
        
 
      - name: Terraform Plan
-       run: terraform plan -no-color -target -out plan
+       run: terraform plan -no-color -target
        continue-on-error: true
     
  
@@ -56,7 +56,7 @@ jobs:
        run: exit 1
  
      - name: Terraform Apply
-       run: terraform apply --auto-approve "plan" 
+       run: terraform apply --auto-approve 
        continue-on-error: true
        
      - name: Kubernetes config
