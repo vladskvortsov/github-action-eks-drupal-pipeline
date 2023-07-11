@@ -27,7 +27,7 @@ module "eks" {
             desired_size = 2
             additional_security_group_ids = [aws_security_group.drupal-sg.id]
 
-            instance_types = ["t2.small"]
+            instance_types = ["t3.small"]
         }
     }
 }
