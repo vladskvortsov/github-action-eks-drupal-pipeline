@@ -45,7 +45,16 @@ cidr_blocks = [
             "10.0.0.0/8"
         ]
   }
-  egress {
+ ingress {
+   
+    from_port        = 2049
+    to_port          = 2049
+    protocol    = "tcp"
+    cidr_blocks = [
+            "10.0.0.0/8"
+        ]
+  }
+ egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
@@ -55,4 +64,22 @@ cidr_blocks = [
   }
 }
 
+resource "aws_efs_file_system" "efs" {
+   creation_token = "efs"
+   performance_mode = "generalPurpose"
+   throughput_mode = "bursting"
+   encrypted = "true"
+ tags = {
+     Name = "EFS"
+   }
+ }
+
+
+resource "aws_efs_mount_target" "efs-mt" {
+
+    file_system_id  = aws_efs_file_system.efs.id
+    subnet_id = each.key
+    for_each = toset(module.drupal-vpc.private_subnets)
+    security_groups = [aws_security_group.drupal-sg.id]
+ }
 
