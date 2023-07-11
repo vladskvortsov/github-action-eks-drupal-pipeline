@@ -16,4 +16,4 @@
   - name: Create a Deployment
     kubernetes.core.k8s:
       state: present
-      src: ./kubernetes/
+      src: /home/runner/work/github-action-eks-drupal-pipeline/github-action-eks-drupal-pipeline/kubernetes/
