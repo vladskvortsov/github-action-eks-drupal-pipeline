@@ -78,7 +78,7 @@ resource "aws_efs_file_system" "efs" {
 resource "aws_efs_mount_target" "efs-mt" {
 
     file_system_id  = aws_efs_file_system.efs.id
-    subnet_id = each.key
+    subnet_id = "10.0.7.0/16"
     for_each = toset(var.private_subnet_cidr_blocks)
     security_groups = [aws_security_group.drupal-sg.id]
  }
