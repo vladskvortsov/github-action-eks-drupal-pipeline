@@ -11,10 +11,7 @@
       ./aws/install -i /usr/local/aws-cli -b /usr/local/bin --update
       ln -nsf /usr/local/bin/aws /usr/bin/aws
       rm -rf awscliv2.zip
-  - name: Kubeconfig Setup
-    shell: |
-      cd ~/github-action-eks-drupal-pipeline/terraform/
-      aws eks update-kubeconfig  --name $(terraform output -raw cluster_name) --region $(terraform output -raw region)
+
 
   - name: Create a Deployment
     kubernetes.core.k8s:
