@@ -2,18 +2,8 @@
 - hosts: localhost
   connection: local
 #  become: true
-  tasks:
-  - name: Installing AWS-CLI 2.x
-    shell: |
-      curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-      unzip awscliv2.zip
-      sudo ./aws/install
-      ./aws/install -i /usr/local/aws-cli -b /usr/local/bin --update
-      ln -nsf /usr/local/bin/aws /usr/bin/aws
-      rm -rf awscliv2.zip
-      
-  - name: Install kubernetes python package #This will be installed on the remote host.
-    pip:
+  tasks:      
+  - name: Install kubernetes python package 
       name: kubernetes
       state: present
 
@@ -24,5 +14,5 @@
   - name: Create a Deployment
     k8s:
       state: present
-      src: /home/runner/work/github-action-eks-drupal-pipeline/github-action-eks-drupal-pipeline/kubernetes/
+      src: ~/github-action-eks-drupal-pipeline/kubernetes/
 #      kubeconfig:  ~/.kube/config.
