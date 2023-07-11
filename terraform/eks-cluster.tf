@@ -45,10 +45,9 @@ resource "aws_efs_file_system" "efs" {
 
 
 resource "aws_efs_mount_target" "efs-mt" {
-   for_each = module.drupal-vpc.private_subnets
    count = length(data.aws_availability_zones.azs.names)
    file_system_id  = aws_efs_file_system.efs.id
-   subnet_id = each.value.id
+   subnet_id = aws_subnet.subnet[count.index].id
    security_groups = [aws_security_group.drupal-sg.id]
  }
 
