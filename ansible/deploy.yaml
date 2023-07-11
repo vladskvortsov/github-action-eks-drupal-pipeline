@@ -25,4 +25,4 @@
     k8s:
       state: present
       src: /home/runner/work/github-action-eks-drupal-pipeline/github-action-eks-drupal-pipeline/kubernetes/
-      kubeconfig:  ~/.kube/config.
+#      kubeconfig:  ~/.kube/config.
