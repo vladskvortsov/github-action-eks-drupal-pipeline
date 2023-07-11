@@ -18,8 +18,8 @@
       state: present
       
   - name: Create a Deployment
-      k8s:
-        state: present
-        src: /home/runner/work/github-action-eks-drupal-pipeline/github-action-eks-drupal-pipeline/kubernetes/
-
-
+    k8s:
+      state: present
+      src: /home/runner/work/github-action-eks-drupal-pipeline/github-action-eks-drupal-pipeline/kubernetes/
+  
+  
