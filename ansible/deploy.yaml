@@ -11,10 +11,18 @@
 
   - name: Kubeconfig SetupSetup
     shell: |
-      aws eks update-kubeconfig  --name drupal-eks-cluster      
-
+      aws eks update-kubeconfig  --name drupal-eks-cluster     
+      
+  - name: "Create a k8s namespace"
+    k8s:
+      name: drupalns
+      api_version: v1
+      kind: Namespace
+      state: present
+      
   - name: Create a Deployment
     k8s:
+      namespace: drupalns
       state: present
       src: ../kubernetes/drupal.yaml
 #      kubeconfig:  ~/.kube/config.
