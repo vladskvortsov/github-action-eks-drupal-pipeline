@@ -16,5 +16,5 @@
   - name: Create a Deployment
     k8s:
       state: present
-      src: $(readlink -f kubernetes)
+      src: ../kubernetes/
 #      kubeconfig:  ~/.kube/config.
