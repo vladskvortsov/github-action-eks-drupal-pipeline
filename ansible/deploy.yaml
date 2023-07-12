@@ -16,7 +16,7 @@
   - name: "Create a k8s namespace"
     k8s:
       name: drupal-ns
-      api_version: v1:
+      api_version: v1
       kind: Namespace
       state: present
       
