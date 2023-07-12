@@ -9,12 +9,12 @@
       state: present
 
 
-  - name: Kubeconfig Setup
+  - name: Kubeconfig SetupSetup
     shell: |
       aws eks update-kubeconfig  --name drupal-eks-cluster      
 
   - name: Create a Deployment
     k8s:
       state: present
-      src: ../kubernetes/*.yaml
+      src: ../kubernetes/drupal.yaml
 #      kubeconfig:  ~/.kube/config.
