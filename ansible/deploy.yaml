@@ -24,7 +24,7 @@
     k8s:
       namespace: drupal-ns
       state: present
-      definition: "{{ lookup('template', '{{ item }}') | from_yaml }}"
+      definition: "{{ lookup('template', '{{ item }}') }}"
     with_fileglob:
           - "../kubernetes/*.yaml"
 
