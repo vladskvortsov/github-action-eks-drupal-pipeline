@@ -13,7 +13,7 @@
     shell: |
       aws eks update-kubeconfig  --name drupal-eks-cluster     
       
-  - name: "Create a k8s namespace"
+  - name: Create a k8s namespace
     k8s:
       name: drupal-ns
       api_version: v1
@@ -28,4 +28,3 @@
     with_fileglob:
           - "../kubernetes/*.yaml"
 
-#      kubeconfig:  ~/.kube/config.
