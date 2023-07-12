@@ -16,7 +16,7 @@
   - name: "Create a k8s namespace"
     k8s:
       name: drupal-ns
-      api_version: v1
+      api_version: v1:
       kind: Namespace
       state: present
       
@@ -24,5 +24,8 @@
     k8s:
       namespace: drupal-ns
       state: present
-      src: ../kubernetes/drupal.yaml
+      definition: "{{ lookup('template', '{{ item }}') | from_yaml }}"
+    with_fileglob:
+          - "../kubernetes/*.yaml"
+
 #      kubeconfig:  ~/.kube/config.
