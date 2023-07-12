@@ -15,14 +15,14 @@
       
   - name: "Create a k8s namespace"
     k8s:
-      name: drupalns
+      name: drupal-ns
       api_version: v1
       kind: Namespace
       state: present
       
   - name: Create a Deployment
     k8s:
-      namespace: drupalns
+      namespace: drupal-ns
       state: present
       src: ../kubernetes/drupal.yaml
 #      kubeconfig:  ~/.kube/config.
