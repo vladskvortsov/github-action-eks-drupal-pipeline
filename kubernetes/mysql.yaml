@@ -40,17 +40,17 @@ spec:
               protocol: TCP
               containerPort: 3306
           env: 
-          - name: MYSQL_USER
-            value: drupal
-
-          - name: MYSQL_DATABASE
-            value: drupal
-
-          - name: MYSQL_ROOT_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: mysql-secret
-                key: mysql-root-password
+            - name: MYSQL_USER
+              value: drupal
+  
+            - name: MYSQL_DATABASE
+              value: drupal
+  
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: mysql-root-password
 
           volumeMounts:
           - name: mysql-persistent-storage
