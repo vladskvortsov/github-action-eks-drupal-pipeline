@@ -68,7 +68,7 @@ resource "aws_efs_file_system" "efs" {
    creation_token = "efs"
    performance_mode = "generalPurpose"
    throughput_mode = "bursting"
-   encrypted = "true"
+   encrypted = "false"
  tags = {
      Name = "EFS"
    }
@@ -76,7 +76,7 @@ resource "aws_efs_file_system" "efs" {
 
 
 resource "aws_efs_mount_target" "efs-mt" {
-    count           = 1
+    count           = 2
     file_system_id  = aws_efs_file_system.efs.id
     subnet_id = module.drupal-vpc.private_subnets[count.index]
 

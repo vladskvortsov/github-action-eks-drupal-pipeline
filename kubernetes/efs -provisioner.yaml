@@ -19,9 +19,9 @@ spec:
           image: quay.io/external_storage/efs-provisioner:v0.1.0
           env:
             - name: FILE_SYSTEM_ID
-              value: {{env.FILE_SYSTEM_ID}}
+              value: fs-0a686dfbb8ca946b7
             - name: AWS_REGION
-              value: {{env.AWS_REGION}}
+              value: us-west-1
             - name: PROVISIONER_NAME
               value: eks-drupal/aws-efs
           volumeMounts:
@@ -30,16 +30,17 @@ spec:
       volumes:
         - name: pv-volume
           nfs:
-            server: {{env.DNS_NAME}}
+            server: fs-0a686dfbb8ca946b7.efs.us-west-1.amazonaws.com
             path: /
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: nfs-provisioner-role-binding
 subjects:
   - kind: ServiceAccount
     name: default
+    namespace: default
 roleRef:
   kind: ClusterRole
   name: cluster-admin

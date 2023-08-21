@@ -60,7 +60,7 @@ spec:
       volumes:
       - name: drupal-persistent-storage
         persistentVolumeClaim:
-          claimName: eks-drupal
+          claimName: efs-claim
 
 
 
