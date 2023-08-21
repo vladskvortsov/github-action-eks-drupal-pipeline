@@ -1,15 +1,11 @@
-provider "aws" {
-    region = "${var.region}"
-#    access_key = "${var.access_key}"
-#    secret_key = "${var.secret_key}"
-}
+
 
 
 terraform {
   required_providers {
     aws = {
      source = "hashicorp/aws"
-#     version = "~> 5.3"
+     version = "~> 5.3"
     }
 #     ansible = {
 #      source  = "ansible/ansible"      
@@ -23,4 +19,9 @@ terraform {
     key = "terraform.tfstate"
   }
 
+}
+provider "aws" {
+    region = "${var.region}"
+#    access_key = "${var.access_key}"
+#    secret_key = "${var.secret_key}"
 }
