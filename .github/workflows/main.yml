@@ -45,7 +45,7 @@ jobs:
        
 
      - name: Terraform Plan
-       run: terraform plan -no-color 
+       run: terraform plan -no-color -out plan
        continue-on-error: true
     
  
@@ -54,7 +54,7 @@ jobs:
        run: exit 1
  
      - name: Terraform Apply
-       run: terraform apply --auto-approve 
+       run: terraform apply --auto-approve "plan"
        continue-on-error: true
        
 
