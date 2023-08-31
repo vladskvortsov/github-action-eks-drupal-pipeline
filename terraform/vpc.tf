@@ -84,7 +84,7 @@ resource "aws_efs_mount_target" "efs-mt" {
  }
 
 resource "null_resource" "install_efs_csi_driver" {
-  depends_on = [module.eks.aws_eks_cluster]
+  depends_on = [module.eks.drupal-eks-cluster]
   provisioner "local-exec" {
     command = format("kubectl --kubeconfig %s apply -k 'github.com/kubernetes-sigs/aws-efs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-1.1'", module.eks.kubeconfig_filename)
   }
